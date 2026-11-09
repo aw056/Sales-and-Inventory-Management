@@ -1,5 +1,6 @@
 import { createFileRoute, Outlet } from "@tanstack/react-router";
 import AppSidebar from "#/components/AppSidebar";
+import HeaderSidebar from "#/components/HeaderSidebar";
 import {
 	SidebarInset,
 	SidebarProvider,
@@ -15,8 +16,8 @@ function AppSidebarLayout() {
 		<SidebarProvider>
 			<AppSidebar />
 			<SidebarInset>
-				<main>
-					<SidebarTrigger />
+				<HeaderSidebar />
+				<main className="p-8">
 					<Outlet />
 				</main>
 			</SidebarInset>
