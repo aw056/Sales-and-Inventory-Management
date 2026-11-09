@@ -71,7 +71,7 @@ function RouteComponent() {
 
 			<div className="grid lg:grid-cols-4 gap-4">
 				<Card>
-					<CardHeader>
+					<CardHeader className="flex justify-between items-center">
 						<CardDescription>Total Penjualan</CardDescription>
 						<Banknote size={20} />
 					</CardHeader>
