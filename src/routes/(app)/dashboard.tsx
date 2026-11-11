@@ -1,5 +1,11 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { Banknote, ChartColumn, ReceiptText } from "lucide-react";
+import {
+	Banknote,
+	Box,
+	ChartColumn,
+	ReceiptText,
+	TriangleAlert,
+} from "lucide-react";
 import {
 	Card,
 	CardContent,
@@ -41,14 +47,36 @@ function RouteComponent() {
 		},
 	];
 
+	const stats = [
+		{
+			label: "Sales",
+			value: "Rp 56.000.000",
+			icon: Banknote,
+		},
+		{
+			label: "Transactions",
+			value: "56.000",
+			icon: ChartColumn,
+		},
+		{
+			label: "Products",
+			value: "56",
+			icon: Box,
+		},
+		{
+			label: "Low Stocks",
+			value: "10",
+			icon: TriangleAlert,
+		},
+	];
+
 	return (
 		<div className="grid gap-8">
 			<div className="grid grid-cols-2 items-end">
 				<div>
 					<h2 className="font-heading text-2xl mb-2">Dashboard</h2>
 					<p className="font-light text-muted-foreground text-sm">
-						Ringkasan operasional bisnis Anda. Penjualan tidak termasuk
-						transaksi yang dibatalkan.
+						An overview of your business. Sales exclude voided transactions.
 					</p>
 				</div>
 				<Field className="max-w-3xs place-self-end">
@@ -70,41 +98,40 @@ function RouteComponent() {
 			</div>
 
 			<div className="grid lg:grid-cols-4 gap-4">
-				<Card>
-					<CardHeader className="flex justify-between items-center">
-						<CardDescription>Total Penjualan</CardDescription>
-						<Banknote size={20} />
+				{stats.map((stat) => (
+					<Card key={stat.label}>
+						<CardHeader className="flex justify-between items-center">
+							<CardDescription>{stat.label}</CardDescription>
+							<stat.icon size={20} />
+						</CardHeader>
+						<CardContent>
+							<p className="font-semibold text-xl">{stat.value}</p>
+						</CardContent>
+					</Card>
+				))}
+			</div>
+			<div className="grid grid-cols-3 gap-4">
+				<Card className="col-span-2">
+					<CardHeader>
+						<CardTitle>Salses trend</CardTitle>
+						<CardDescription>Sales total</CardDescription>
 					</CardHeader>
-					<CardContent>
-						<p className="font-semibold text-xl">Rp 123.000</p>
-					</CardContent>
+					<CardContent></CardContent>
 				</Card>
 				<Card>
-					<CardHeader className="flex justify-between items-center">
-						<CardDescription>Total Transaksi</CardDescription>
-						<ChartColumn size={20} />
+					<CardHeader>
+						<CardTitle>Top products</CardTitle>
+						<CardDescription>By quantity sold</CardDescription>
 					</CardHeader>
-					<CardContent>
-						<p className="font-semibold text-xl">123</p>
-					</CardContent>
+					<CardContent></CardContent>
 				</Card>
+			</div>
+			<div>
 				<Card>
-					<CardHeader className="flex justify-between items-center">
-						<CardDescription>Total Transaksi</CardDescription>
-						<ChartColumn size={20} />
+					<CardHeader>
+						<CardTitle>Last transactions</CardTitle>
 					</CardHeader>
-					<CardContent>
-						<p className="font-semibold text-xl">123</p>
-					</CardContent>
-				</Card>
-				<Card>
-					<CardHeader className="flex justify-between items-center">
-						<CardDescription>Total Transaksi</CardDescription>
-						<ChartColumn size={20} />
-					</CardHeader>
-					<CardContent>
-						<p className="font-semibold text-xl">123</p>
-					</CardContent>
+					<CardContent></CardContent>
 				</Card>
 			</div>
 		</div>
