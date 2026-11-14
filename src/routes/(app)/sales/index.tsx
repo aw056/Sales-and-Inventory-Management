@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { Download, Inbox, Info } from "lucide-react";
 import DatePickerRange from "#/components/DatePickerRange";
 import { Button } from "#/components/ui/button";
@@ -48,7 +48,9 @@ function RouteComponent() {
 						<Download />
 						<span>CSV</span>
 					</Button>
-					<Button size="lg">New Sale</Button>
+					<Link to="/sales/new">
+						<Button size="lg">New Sale</Button>
+					</Link>
 				</div>
 			</div>
 			<Card>

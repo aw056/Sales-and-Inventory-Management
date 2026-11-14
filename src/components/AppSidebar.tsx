@@ -48,7 +48,7 @@ export default function AppSidebar() {
 		},
 		{
 			label: "Products",
-			url: "/Products",
+			url: "/products",
 			icon: Box,
 		},
 		{

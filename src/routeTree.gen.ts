@@ -12,7 +12,9 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as appRouteRouteImport } from './routes/(app)/route'
 import { Route as LoginRouteImport } from './routes/login'
+import { Route as appCategoriesRouteImport } from './routes/(app)/categories'
 import { Route as appDashboardRouteImport } from './routes/(app)/dashboard'
+import { Route as appProductsRouteImport } from './routes/(app)/products'
 import { Route as appSalesIndexRouteImport } from './routes/(app)/sales/index'
 import { Route as appSalesNewRouteImport } from './routes/(app)/sales/new'
 
@@ -30,9 +32,19 @@ const LoginRoute = LoginRouteImport.update({
   path: '/login',
   getParentRoute: () => rootRouteImport,
 } as any)
+const appCategoriesRoute = appCategoriesRouteImport.update({
+  id: '/categories',
+  path: '/categories',
+  getParentRoute: () => appRouteRoute,
+} as any)
 const appDashboardRoute = appDashboardRouteImport.update({
   id: '/dashboard',
   path: '/dashboard',
+  getParentRoute: () => appRouteRoute,
+} as any)
+const appProductsRoute = appProductsRouteImport.update({
+  id: '/products',
+  path: '/products',
   getParentRoute: () => appRouteRoute,
 } as any)
 const appSalesIndexRoute = appSalesIndexRouteImport.update({
@@ -49,14 +61,18 @@ const appSalesNewRoute = appSalesNewRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/login': typeof LoginRoute
+  '/categories': typeof appCategoriesRoute
   '/dashboard': typeof appDashboardRoute
+  '/products': typeof appProductsRoute
   '/sales/new': typeof appSalesNewRoute
   '/sales/': typeof appSalesIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/login': typeof LoginRoute
+  '/categories': typeof appCategoriesRoute
   '/dashboard': typeof appDashboardRoute
+  '/products': typeof appProductsRoute
   '/sales/new': typeof appSalesNewRoute
   '/sales': typeof appSalesIndexRoute
 }
@@ -65,21 +81,39 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/(app)': typeof appRouteRouteWithChildren
   '/login': typeof LoginRoute
+  '/(app)/categories': typeof appCategoriesRoute
   '/(app)/dashboard': typeof appDashboardRoute
+  '/(app)/products': typeof appProductsRoute
   '/(app)/sales/new': typeof appSalesNewRoute
   '/(app)/sales/': typeof appSalesIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/login' | '/dashboard' | '/sales/new' | '/sales/'
+  fullPaths:
+    | '/'
+    | '/login'
+    | '/categories'
+    | '/dashboard'
+    | '/products'
+    | '/sales/new'
+    | '/sales/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/login' | '/dashboard' | '/sales/new' | '/sales'
+  to:
+    | '/'
+    | '/login'
+    | '/categories'
+    | '/dashboard'
+    | '/products'
+    | '/sales/new'
+    | '/sales'
   id:
     | '__root__'
     | '/'
     | '/(app)'
     | '/login'
+    | '/(app)/categories'
     | '/(app)/dashboard'
+    | '/(app)/products'
     | '/(app)/sales/new'
     | '/(app)/sales/'
   fileRoutesById: FileRoutesById
@@ -113,11 +147,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LoginRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/(app)/categories': {
+      id: '/(app)/categories'
+      path: '/categories'
+      fullPath: '/categories'
+      preLoaderRoute: typeof appCategoriesRouteImport
+      parentRoute: typeof appRouteRoute
+    }
     '/(app)/dashboard': {
       id: '/(app)/dashboard'
       path: '/dashboard'
       fullPath: '/dashboard'
       preLoaderRoute: typeof appDashboardRouteImport
+      parentRoute: typeof appRouteRoute
+    }
+    '/(app)/products': {
+      id: '/(app)/products'
+      path: '/products'
+      fullPath: '/products'
+      preLoaderRoute: typeof appProductsRouteImport
       parentRoute: typeof appRouteRoute
     }
     '/(app)/sales/': {
@@ -138,13 +186,17 @@ declare module '@tanstack/react-router' {
 }
 
 interface appRouteRouteChildren {
+  appCategoriesRoute: typeof appCategoriesRoute
   appDashboardRoute: typeof appDashboardRoute
+  appProductsRoute: typeof appProductsRoute
   appSalesNewRoute: typeof appSalesNewRoute
   appSalesIndexRoute: typeof appSalesIndexRoute
 }
 
 const appRouteRouteChildren: appRouteRouteChildren = {
+  appCategoriesRoute: appCategoriesRoute,
   appDashboardRoute: appDashboardRoute,
+  appProductsRoute: appProductsRoute,
   appSalesNewRoute: appSalesNewRoute,
   appSalesIndexRoute: appSalesIndexRoute,
 }
