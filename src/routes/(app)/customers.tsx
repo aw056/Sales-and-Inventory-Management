@@ -82,7 +82,7 @@ function RouteComponent() {
 											</EmptyMedia>
 											<EmptyTitle>No data</EmptyTitle>
 											<EmptyDescription>
-												No data found in products.{" "}
+												No data found in customers.{" "}
 											</EmptyDescription>
 										</EmptyHeader>
 									</Empty>

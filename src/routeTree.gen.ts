@@ -17,6 +17,8 @@ import { Route as appCustomersRouteImport } from './routes/(app)/customers'
 import { Route as appDashboardRouteImport } from './routes/(app)/dashboard'
 import { Route as appInventoryRouteImport } from './routes/(app)/inventory'
 import { Route as appProductsRouteImport } from './routes/(app)/products'
+import { Route as appReportsRouteImport } from './routes/(app)/reports'
+import { Route as appSuppliersRouteImport } from './routes/(app)/suppliers'
 import { Route as appSalesIndexRouteImport } from './routes/(app)/sales/index'
 import { Route as appSalesNewRouteImport } from './routes/(app)/sales/new'
 
@@ -59,6 +61,16 @@ const appProductsRoute = appProductsRouteImport.update({
   path: '/products',
   getParentRoute: () => appRouteRoute,
 } as any)
+const appReportsRoute = appReportsRouteImport.update({
+  id: '/reports',
+  path: '/reports',
+  getParentRoute: () => appRouteRoute,
+} as any)
+const appSuppliersRoute = appSuppliersRouteImport.update({
+  id: '/suppliers',
+  path: '/suppliers',
+  getParentRoute: () => appRouteRoute,
+} as any)
 const appSalesIndexRoute = appSalesIndexRouteImport.update({
   id: '/sales/',
   path: '/sales/',
@@ -78,6 +90,8 @@ export interface FileRoutesByFullPath {
   '/dashboard': typeof appDashboardRoute
   '/inventory': typeof appInventoryRoute
   '/products': typeof appProductsRoute
+  '/reports': typeof appReportsRoute
+  '/suppliers': typeof appSuppliersRoute
   '/sales/new': typeof appSalesNewRoute
   '/sales/': typeof appSalesIndexRoute
 }
@@ -89,6 +103,8 @@ export interface FileRoutesByTo {
   '/dashboard': typeof appDashboardRoute
   '/inventory': typeof appInventoryRoute
   '/products': typeof appProductsRoute
+  '/reports': typeof appReportsRoute
+  '/suppliers': typeof appSuppliersRoute
   '/sales/new': typeof appSalesNewRoute
   '/sales': typeof appSalesIndexRoute
 }
@@ -102,6 +118,8 @@ export interface FileRoutesById {
   '/(app)/dashboard': typeof appDashboardRoute
   '/(app)/inventory': typeof appInventoryRoute
   '/(app)/products': typeof appProductsRoute
+  '/(app)/reports': typeof appReportsRoute
+  '/(app)/suppliers': typeof appSuppliersRoute
   '/(app)/sales/new': typeof appSalesNewRoute
   '/(app)/sales/': typeof appSalesIndexRoute
 }
@@ -115,6 +133,8 @@ export interface FileRouteTypes {
     | '/dashboard'
     | '/inventory'
     | '/products'
+    | '/reports'
+    | '/suppliers'
     | '/sales/new'
     | '/sales/'
   fileRoutesByTo: FileRoutesByTo
@@ -126,6 +146,8 @@ export interface FileRouteTypes {
     | '/dashboard'
     | '/inventory'
     | '/products'
+    | '/reports'
+    | '/suppliers'
     | '/sales/new'
     | '/sales'
   id:
@@ -138,6 +160,8 @@ export interface FileRouteTypes {
     | '/(app)/dashboard'
     | '/(app)/inventory'
     | '/(app)/products'
+    | '/(app)/reports'
+    | '/(app)/suppliers'
     | '/(app)/sales/new'
     | '/(app)/sales/'
   fileRoutesById: FileRoutesById
@@ -206,6 +230,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof appProductsRouteImport
       parentRoute: typeof appRouteRoute
     }
+    '/(app)/reports': {
+      id: '/(app)/reports'
+      path: '/reports'
+      fullPath: '/reports'
+      preLoaderRoute: typeof appReportsRouteImport
+      parentRoute: typeof appRouteRoute
+    }
+    '/(app)/suppliers': {
+      id: '/(app)/suppliers'
+      path: '/suppliers'
+      fullPath: '/suppliers'
+      preLoaderRoute: typeof appSuppliersRouteImport
+      parentRoute: typeof appRouteRoute
+    }
     '/(app)/sales/': {
       id: '/(app)/sales/'
       path: '/sales'
@@ -229,6 +267,8 @@ interface appRouteRouteChildren {
   appDashboardRoute: typeof appDashboardRoute
   appInventoryRoute: typeof appInventoryRoute
   appProductsRoute: typeof appProductsRoute
+  appReportsRoute: typeof appReportsRoute
+  appSuppliersRoute: typeof appSuppliersRoute
   appSalesNewRoute: typeof appSalesNewRoute
   appSalesIndexRoute: typeof appSalesIndexRoute
 }
@@ -239,6 +279,8 @@ const appRouteRouteChildren: appRouteRouteChildren = {
   appDashboardRoute: appDashboardRoute,
   appInventoryRoute: appInventoryRoute,
   appProductsRoute: appProductsRoute,
+  appReportsRoute: appReportsRoute,
+  appSuppliersRoute: appSuppliersRoute,
   appSalesNewRoute: appSalesNewRoute,
   appSalesIndexRoute: appSalesIndexRoute,
 }
