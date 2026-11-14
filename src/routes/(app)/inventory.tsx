@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Plus, Settings2 } from "lucide-react";
+import MovementHistory from "#/components/MovementHistory";
 import StockBalances from "#/components/StockBalances";
 import { Button } from "#/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "#/components/ui/tabs";
@@ -37,7 +38,9 @@ function RouteComponent() {
 				<TabsContent value="balances">
 					<StockBalances />
 				</TabsContent>
-				<TabsContent value="history"></TabsContent>
+				<TabsContent value="history">
+					<MovementHistory />
+				</TabsContent>
 			</Tabs>
 		</div>
 	);
