@@ -16,8 +16,10 @@ import { Route as appCategoriesRouteImport } from './routes/(app)/categories'
 import { Route as appCustomersRouteImport } from './routes/(app)/customers'
 import { Route as appDashboardRouteImport } from './routes/(app)/dashboard'
 import { Route as appInventoryRouteImport } from './routes/(app)/inventory'
+import { Route as appMembersRouteImport } from './routes/(app)/members'
 import { Route as appProductsRouteImport } from './routes/(app)/products'
 import { Route as appReportsRouteImport } from './routes/(app)/reports'
+import { Route as appSettingsRouteImport } from './routes/(app)/settings'
 import { Route as appSuppliersRouteImport } from './routes/(app)/suppliers'
 import { Route as appSalesIndexRouteImport } from './routes/(app)/sales/index'
 import { Route as appSalesNewRouteImport } from './routes/(app)/sales/new'
@@ -56,6 +58,11 @@ const appInventoryRoute = appInventoryRouteImport.update({
   path: '/inventory',
   getParentRoute: () => appRouteRoute,
 } as any)
+const appMembersRoute = appMembersRouteImport.update({
+  id: '/members',
+  path: '/members',
+  getParentRoute: () => appRouteRoute,
+} as any)
 const appProductsRoute = appProductsRouteImport.update({
   id: '/products',
   path: '/products',
@@ -64,6 +71,11 @@ const appProductsRoute = appProductsRouteImport.update({
 const appReportsRoute = appReportsRouteImport.update({
   id: '/reports',
   path: '/reports',
+  getParentRoute: () => appRouteRoute,
+} as any)
+const appSettingsRoute = appSettingsRouteImport.update({
+  id: '/settings',
+  path: '/settings',
   getParentRoute: () => appRouteRoute,
 } as any)
 const appSuppliersRoute = appSuppliersRouteImport.update({
@@ -89,8 +101,10 @@ export interface FileRoutesByFullPath {
   '/customers': typeof appCustomersRoute
   '/dashboard': typeof appDashboardRoute
   '/inventory': typeof appInventoryRoute
+  '/members': typeof appMembersRoute
   '/products': typeof appProductsRoute
   '/reports': typeof appReportsRoute
+  '/settings': typeof appSettingsRoute
   '/suppliers': typeof appSuppliersRoute
   '/sales/new': typeof appSalesNewRoute
   '/sales/': typeof appSalesIndexRoute
@@ -102,8 +116,10 @@ export interface FileRoutesByTo {
   '/customers': typeof appCustomersRoute
   '/dashboard': typeof appDashboardRoute
   '/inventory': typeof appInventoryRoute
+  '/members': typeof appMembersRoute
   '/products': typeof appProductsRoute
   '/reports': typeof appReportsRoute
+  '/settings': typeof appSettingsRoute
   '/suppliers': typeof appSuppliersRoute
   '/sales/new': typeof appSalesNewRoute
   '/sales': typeof appSalesIndexRoute
@@ -117,8 +133,10 @@ export interface FileRoutesById {
   '/(app)/customers': typeof appCustomersRoute
   '/(app)/dashboard': typeof appDashboardRoute
   '/(app)/inventory': typeof appInventoryRoute
+  '/(app)/members': typeof appMembersRoute
   '/(app)/products': typeof appProductsRoute
   '/(app)/reports': typeof appReportsRoute
+  '/(app)/settings': typeof appSettingsRoute
   '/(app)/suppliers': typeof appSuppliersRoute
   '/(app)/sales/new': typeof appSalesNewRoute
   '/(app)/sales/': typeof appSalesIndexRoute
@@ -132,8 +150,10 @@ export interface FileRouteTypes {
     | '/customers'
     | '/dashboard'
     | '/inventory'
+    | '/members'
     | '/products'
     | '/reports'
+    | '/settings'
     | '/suppliers'
     | '/sales/new'
     | '/sales/'
@@ -145,8 +165,10 @@ export interface FileRouteTypes {
     | '/customers'
     | '/dashboard'
     | '/inventory'
+    | '/members'
     | '/products'
     | '/reports'
+    | '/settings'
     | '/suppliers'
     | '/sales/new'
     | '/sales'
@@ -159,8 +181,10 @@ export interface FileRouteTypes {
     | '/(app)/customers'
     | '/(app)/dashboard'
     | '/(app)/inventory'
+    | '/(app)/members'
     | '/(app)/products'
     | '/(app)/reports'
+    | '/(app)/settings'
     | '/(app)/suppliers'
     | '/(app)/sales/new'
     | '/(app)/sales/'
@@ -223,6 +247,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof appInventoryRouteImport
       parentRoute: typeof appRouteRoute
     }
+    '/(app)/members': {
+      id: '/(app)/members'
+      path: '/members'
+      fullPath: '/members'
+      preLoaderRoute: typeof appMembersRouteImport
+      parentRoute: typeof appRouteRoute
+    }
     '/(app)/products': {
       id: '/(app)/products'
       path: '/products'
@@ -235,6 +266,13 @@ declare module '@tanstack/react-router' {
       path: '/reports'
       fullPath: '/reports'
       preLoaderRoute: typeof appReportsRouteImport
+      parentRoute: typeof appRouteRoute
+    }
+    '/(app)/settings': {
+      id: '/(app)/settings'
+      path: '/settings'
+      fullPath: '/settings'
+      preLoaderRoute: typeof appSettingsRouteImport
       parentRoute: typeof appRouteRoute
     }
     '/(app)/suppliers': {
@@ -266,8 +304,10 @@ interface appRouteRouteChildren {
   appCustomersRoute: typeof appCustomersRoute
   appDashboardRoute: typeof appDashboardRoute
   appInventoryRoute: typeof appInventoryRoute
+  appMembersRoute: typeof appMembersRoute
   appProductsRoute: typeof appProductsRoute
   appReportsRoute: typeof appReportsRoute
+  appSettingsRoute: typeof appSettingsRoute
   appSuppliersRoute: typeof appSuppliersRoute
   appSalesNewRoute: typeof appSalesNewRoute
   appSalesIndexRoute: typeof appSalesIndexRoute
@@ -278,8 +318,10 @@ const appRouteRouteChildren: appRouteRouteChildren = {
   appCustomersRoute: appCustomersRoute,
   appDashboardRoute: appDashboardRoute,
   appInventoryRoute: appInventoryRoute,
+  appMembersRoute: appMembersRoute,
   appProductsRoute: appProductsRoute,
   appReportsRoute: appReportsRoute,
+  appSettingsRoute: appSettingsRoute,
   appSuppliersRoute: appSuppliersRoute,
   appSalesNewRoute: appSalesNewRoute,
   appSalesIndexRoute: appSalesIndexRoute,
