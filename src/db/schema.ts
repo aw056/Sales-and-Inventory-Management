@@ -9,40 +9,35 @@ import {
 	uuid,
 } from "drizzle-orm/pg-core";
 
-export const businessesTable = pgTable.withRLS("businesses", {
+export const businesses = pgTable.withRLS("businesses", {
 	id: uuid().primaryKey().defaultRandom(),
 	name: text(),
 	short_name: text(),
 	email: text(),
-	phone_number: integer(),
+	phone_number: text(),
 	address: text(),
 	logo: text(),
 });
 
-export const authUsersTable = pgTable.withRLS("auth_users", {
+export const businessMembers = pgTable.withRLS("business_members", {
 	id: uuid().primaryKey().defaultRandom(),
-	email: text(),
-});
-
-export const businessMembersTable = pgTable.withRLS("business_members", {
-	id: uuid().primaryKey().defaultRandom(),
-	business_id: uuid(),
+	business_id: uuid().references(() => businesses.id),
 	user_id: uuid(),
 	role: text(),
-	created_at: timestamp().defaultNow(),
+	created_at: timestamp({ withTimezone: true }).defaultNow(),
 });
 
-export const categoriesTabel = pgTable.withRLS("categories", {
+export const categories = pgTable.withRLS("categories", {
 	id: uuid().primaryKey().defaultRandom(),
-	business_id: uuid(),
+	business_id: uuid().references(() => businesses.id),
 	name: text(),
-	created_at: timestamp().defaultNow(),
+	created_at: timestamp({ withTimezone: true }).defaultNow(),
 });
 
-export const productsTable = pgTable.withRLS("products", {
+export const products = pgTable.withRLS("products", {
 	id: uuid().primaryKey().defaultRandom(),
-	business_id: uuid(),
-	category_id: uuid(),
+	business_id: uuid().references(() => businesses.id),
+	category_id: uuid().references(() => categories.id),
 	sku: text(),
 	name: text(),
 	description: text(),
@@ -51,74 +46,74 @@ export const productsTable = pgTable.withRLS("products", {
 	cost_price: numeric(),
 	low_stock_threshold: numeric(),
 	is_active: boolean().default(true),
-	created_at: timestamp().defaultNow(),
-	updated_at: timestamp().defaultNow(),
+	created_at: timestamp({ withTimezone: true }).defaultNow(),
+	updated_at: timestamp({ withTimezone: true }).defaultNow(),
 });
 
-export const inventoryBalancesTable = pgTable.withRLS("inventory_balances", {
+export const inventoryBalances = pgTable.withRLS("inventory_balances", {
 	id: uuid().primaryKey().defaultRandom(),
-	business_id: uuid(),
-	product_id: uuid(),
+	business_id: uuid().references(() => businesses.id),
+	product_id: uuid().references(() => products.id),
 	quantity: numeric(),
-	updated_at: timestamp().defaultNow(),
+	updated_at: timestamp({ withTimezone: true }).defaultNow(),
 });
 
-export const inventoryMovementsTable = pgTable.withRLS("inventory_movements", {
+export const inventoryMovements = pgTable.withRLS("inventory_movements", {
 	id: uuid().primaryKey().defaultRandom(),
-	business_id: uuid(),
-	product_id: uuid(),
+	business_id: uuid().references(() => businesses.id),
+	product_id: uuid().references(() => products.id),
 	movement_type: text(),
 	quantity: numeric(),
 	reference_type: text(),
 	reference_id: uuid(),
 	reason: text(),
 	created_by: uuid(),
-	created_at: timestamp().defaultNow(),
+	created_at: timestamp({ withTimezone: true }).defaultNow(),
 });
 
-export const customersTable = pgTable.withRLS("customers", {
+export const customers = pgTable.withRLS("customers", {
 	id: uuid().primaryKey().defaultRandom(),
-	business_id: uuid(),
+	business_id: uuid().references(() => businesses.id),
 	name: text(),
 	phone: text(),
 	email: text(),
 	notes: text(),
-	created_at: timestamp().defaultNow(),
+	created_at: timestamp({ withTimezone: true }).defaultNow(),
 });
 
-export const suppliersTable = pgTable.withRLS("suppliers", {
+export const suppliers = pgTable.withRLS("suppliers", {
 	id: uuid().primaryKey().defaultRandom(),
-	business_id: uuid(),
+	business_id: uuid().references(() => businesses.id),
 	name: text(),
 	phone: text(),
 	email: text(),
 	notes: text(),
-	created_at: timestamp().defaultNow(),
+	created_at: timestamp({ withTimezone: true }).defaultNow(),
 });
 
-export const stockReceiptsTable = pgTable.withRLS("stock_receipts", {
+export const stockReceipts = pgTable.withRLS("stock_receipts", {
 	id: uuid().primaryKey().defaultRandom(),
-	business_id: uuid(),
-	supplier_id: uuid(),
+	business_id: uuid().references(() => businesses.id),
+	supplier_id: uuid().references(() => suppliers.id),
 	receipt_number: text(),
 	status: text(),
 	notes: text(),
 	created_by: uuid(),
-	created_at: timestamp().defaultNow(),
+	created_at: timestamp({ withTimezone: true }).defaultNow(),
 });
 
-export const stockReceiptItemsTable = pgTable.withRLS("stock_receipt_items", {
+export const stockReceiptItems = pgTable.withRLS("stock_receipt_items", {
 	id: uuid().primaryKey().defaultRandom(),
-	stock_receipt_id: uuid(),
-	product_id: uuid(),
+	stock_receipt_id: uuid().references(() => stockReceipts.id),
+	product_id: uuid().references(() => products.id),
 	quantity: numeric(),
 	unit_cost: numeric(),
 });
 
-export const salesTable = pgTable.withRLS("sales", {
+export const sales = pgTable.withRLS("sales", {
 	id: uuid().primaryKey().defaultRandom(),
-	business_id: uuid(),
-	customer_id: uuid(),
+	business_id: uuid().references(() => businesses.id),
+	customer_id: uuid().references(() => customers.id),
 	sale_number: text(),
 	status: text(),
 	subtotal: numeric(),
@@ -126,13 +121,13 @@ export const salesTable = pgTable.withRLS("sales", {
 	tax_total: numeric(),
 	grand_total: numeric(),
 	created_by: uuid(),
-	created_at: timestamp().defaultNow(),
+	created_at: timestamp({ withTimezone: true }).defaultNow(),
 });
 
-export const saleItemsTable = pgTable.withRLS("sale_items", {
+export const saleItems = pgTable.withRLS("sale_items", {
 	id: uuid().primaryKey().defaultRandom(),
-	sale_id: uuid(),
-	product_id: uuid(),
+	sale_id: uuid().references(() => sales.id),
+	product_id: uuid().references(() => products.id),
 	product_name_snapshot: text(),
 	sku_snapshot: text(),
 	quantity: numeric(),
@@ -140,24 +135,24 @@ export const saleItemsTable = pgTable.withRLS("sale_items", {
 	line_total: numeric(),
 });
 
-export const paymentsTable = pgTable.withRLS("payments", {
+export const payments = pgTable.withRLS("payments", {
 	id: uuid().primaryKey().defaultRandom(),
-	business_id: uuid(),
-	sale_id: uuid(),
+	business_id: uuid().references(() => businesses.id),
+	sale_id: uuid().references(() => sales.id),
 	method: text(),
 	amount: numeric(),
 	status: text(),
-	paid_at: timestamp().defaultNow(),
-	created_at: timestamp().defaultNow(),
+	paid_at: timestamp({ withTimezone: true }).defaultNow(),
+	created_at: timestamp({ withTimezone: true }).defaultNow(),
 });
 
-export const auditLogsTable = pgTable.withRLS("audit_logs", {
+export const auditLogs = pgTable.withRLS("audit_logs", {
 	id: uuid().primaryKey().defaultRandom(),
-	business_id: uuid(),
+	business_id: uuid().references(() => businesses.id),
 	user_id: uuid(),
 	action: text(),
 	entity_id: uuid(),
 	entity_type: text(),
 	metadata: jsonb(),
-	created_at: timestamp().defaultNow(),
+	created_at: timestamp({ withTimezone: true }).defaultNow(),
 });

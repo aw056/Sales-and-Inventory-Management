@@ -1,6 +1,16 @@
-import { drizzle } from "drizzle-orm";
+import "dotenv/config";
+import { drizzle } from "drizzle-orm/postgres-js";
+import postgres from "postgres";
 
-async function main() {
-	const db = drizzle("postgres-js", process.env.DATABASE_URL);
+const connectionString = process.env.DATABASE_URL;
+
+if (!connectionString) {
+	throw new Error("DATABASE_URL tidak ditemukan");
 }
-main();
+
+export const client = postgres(connectionString, {
+	max: 1,
+	connect_timeout: 30,
+});
+
+export const db = drizzle({ client });

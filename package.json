@@ -12,7 +12,8 @@
     "preview": "vite preview",
     "format": "biome format",
     "lint": "biome lint",
-    "check": "biome check"
+    "check": "biome check",
+    "db:seed": "tsx src/db/seed.ts"
   },
   "dependencies": {
     "@base-ui/react": "^1.9.0",
