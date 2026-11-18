@@ -9,8 +9,8 @@ import {
 	uuid,
 } from "drizzle-orm/pg-core";
 
-export const businessesTable = pgTable("businesses", {
-	id: uuid().primaryKey(),
+export const businessesTable = pgTable.withRLS("businesses", {
+	id: uuid().primaryKey().defaultRandom(),
 	name: text(),
 	short_name: text(),
 	email: text(),
@@ -19,28 +19,28 @@ export const businessesTable = pgTable("businesses", {
 	logo: text(),
 });
 
-export const authUsersTable = pgTable("auth_users", {
-	id: uuid().primaryKey(),
+export const authUsersTable = pgTable.withRLS("auth_users", {
+	id: uuid().primaryKey().defaultRandom(),
 	email: text(),
 });
 
-export const businessMembersTable = pgTable("business_members", {
-	id: uuid().primaryKey(),
+export const businessMembersTable = pgTable.withRLS("business_members", {
+	id: uuid().primaryKey().defaultRandom(),
 	business_id: uuid(),
 	user_id: uuid(),
 	role: text(),
 	created_at: timestamp().defaultNow(),
 });
 
-export const categoriesTabel = pgTable("categories", {
-	id: uuid().primaryKey(),
+export const categoriesTabel = pgTable.withRLS("categories", {
+	id: uuid().primaryKey().defaultRandom(),
 	business_id: uuid(),
 	name: text(),
 	created_at: timestamp().defaultNow(),
 });
 
-export const productsTable = pgTable("products", {
-	id: uuid().primaryKey(),
+export const productsTable = pgTable.withRLS("products", {
+	id: uuid().primaryKey().defaultRandom(),
 	business_id: uuid(),
 	category_id: uuid(),
 	sku: text(),
@@ -55,16 +55,16 @@ export const productsTable = pgTable("products", {
 	updated_at: timestamp().defaultNow(),
 });
 
-export const inventoryBalancesTable = pgTable("inventory_balances", {
-	id: uuid().primaryKey(),
+export const inventoryBalancesTable = pgTable.withRLS("inventory_balances", {
+	id: uuid().primaryKey().defaultRandom(),
 	business_id: uuid(),
 	product_id: uuid(),
 	quantity: numeric(),
 	updated_at: timestamp().defaultNow(),
 });
 
-export const inventoryMovementsTable = pgTable("inventory_movements", {
-	id: uuid().primaryKey(),
+export const inventoryMovementsTable = pgTable.withRLS("inventory_movements", {
+	id: uuid().primaryKey().defaultRandom(),
 	business_id: uuid(),
 	product_id: uuid(),
 	movement_type: text(),
@@ -76,8 +76,8 @@ export const inventoryMovementsTable = pgTable("inventory_movements", {
 	created_at: timestamp().defaultNow(),
 });
 
-export const customersTable = pgTable("customers", {
-	id: uuid().primaryKey(),
+export const customersTable = pgTable.withRLS("customers", {
+	id: uuid().primaryKey().defaultRandom(),
 	business_id: uuid(),
 	name: text(),
 	phone: text(),
@@ -86,8 +86,8 @@ export const customersTable = pgTable("customers", {
 	created_at: timestamp().defaultNow(),
 });
 
-export const suppliersTable = pgTable("suppliers", {
-	id: uuid().primaryKey(),
+export const suppliersTable = pgTable.withRLS("suppliers", {
+	id: uuid().primaryKey().defaultRandom(),
 	business_id: uuid(),
 	name: text(),
 	phone: text(),
@@ -96,8 +96,8 @@ export const suppliersTable = pgTable("suppliers", {
 	created_at: timestamp().defaultNow(),
 });
 
-export const stockReceiptsTable = pgTable("stock_receipts", {
-	id: uuid().primaryKey(),
+export const stockReceiptsTable = pgTable.withRLS("stock_receipts", {
+	id: uuid().primaryKey().defaultRandom(),
 	business_id: uuid(),
 	supplier_id: uuid(),
 	receipt_number: text(),
@@ -107,16 +107,16 @@ export const stockReceiptsTable = pgTable("stock_receipts", {
 	created_at: timestamp().defaultNow(),
 });
 
-export const stockReceiptItemsTable = pgTable("stock_receipt_items", {
-	id: uuid().primaryKey(),
+export const stockReceiptItemsTable = pgTable.withRLS("stock_receipt_items", {
+	id: uuid().primaryKey().defaultRandom(),
 	stock_receipt_id: uuid(),
 	product_id: uuid(),
 	quantity: numeric(),
 	unit_cost: numeric(),
 });
 
-export const salesTable = pgTable("sales", {
-	id: uuid().primaryKey(),
+export const salesTable = pgTable.withRLS("sales", {
+	id: uuid().primaryKey().defaultRandom(),
 	business_id: uuid(),
 	customer_id: uuid(),
 	sale_number: text(),
@@ -129,8 +129,8 @@ export const salesTable = pgTable("sales", {
 	created_at: timestamp().defaultNow(),
 });
 
-export const saleItemsTable = pgTable("sale_items", {
-	id: uuid().primaryKey(),
+export const saleItemsTable = pgTable.withRLS("sale_items", {
+	id: uuid().primaryKey().defaultRandom(),
 	sale_id: uuid(),
 	product_id: uuid(),
 	product_name_snapshot: text(),
@@ -140,8 +140,8 @@ export const saleItemsTable = pgTable("sale_items", {
 	line_total: numeric(),
 });
 
-export const paymentsTable = pgTable("payments", {
-	id: uuid().primaryKey(),
+export const paymentsTable = pgTable.withRLS("payments", {
+	id: uuid().primaryKey().defaultRandom(),
 	business_id: uuid(),
 	sale_id: uuid(),
 	method: text(),
@@ -151,8 +151,8 @@ export const paymentsTable = pgTable("payments", {
 	created_at: timestamp().defaultNow(),
 });
 
-export const auditLogsTable = pgTable("audit_logs", {
-	id: uuid().primaryKey(),
+export const auditLogsTable = pgTable.withRLS("audit_logs", {
+	id: uuid().primaryKey().defaultRandom(),
 	business_id: uuid(),
 	user_id: uuid(),
 	action: text(),
