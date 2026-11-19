@@ -1,32 +1,9 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { Download, Info, Plus } from "lucide-react";
+import { Download, Plus } from "lucide-react";
 import { Button } from "#/components/ui/button";
 import { Card, CardContent, CardHeader } from "#/components/ui/card";
-import {
-	Empty,
-	EmptyDescription,
-	EmptyHeader,
-	EmptyMedia,
-	EmptyTitle,
-} from "#/components/ui/empty";
-import { Field, FieldGroup } from "#/components/ui/field";
-import { Input } from "#/components/ui/input";
-import {
-	Select,
-	SelectContent,
-	SelectGroup,
-	SelectItem,
-	SelectTrigger,
-	SelectValue,
-} from "#/components/ui/select";
-import {
-	Table,
-	TableBody,
-	TableCell,
-	TableHead,
-	TableHeader,
-	TableRow,
-} from "#/components/ui/table";
+import ProductFilter from "#/features/products/components/ProductFilter";
+import ProductTable from "#/features/products/components/ProductTable";
 
 export const Route = createFileRoute("/(app)/products")({
 	component: RouteComponent,
@@ -54,63 +31,11 @@ function RouteComponent() {
 
 			<Card>
 				<CardHeader>
-					<FieldGroup>
-						<div className="grid grid-cols-6 gap-4">
-							<Field className="col-span-2">
-								<Input placeholder="Search product by kode or name..." />
-							</Field>
-							<Field>
-								<Select>
-									<SelectTrigger>
-										<SelectValue />
-									</SelectTrigger>
-									<SelectContent>
-										<SelectGroup>
-											<SelectItem></SelectItem>
-										</SelectGroup>
-									</SelectContent>
-								</Select>
-							</Field>
-							<Field orientation="horizontal">
-								<Button size="lg">Search</Button>
-								<Button size="lg" variant="ghost">
-									Reset
-								</Button>
-							</Field>
-						</div>
-					</FieldGroup>
+					<ProductFilter />
 				</CardHeader>
 
 				<CardContent>
-					<Table>
-						<TableHeader>
-							<TableRow>
-								<TableHead>Products</TableHead>
-								<TableHead>Categories</TableHead>
-								<TableHead>Selling Price</TableHead>
-								<TableHead>Stock</TableHead>
-								<TableHead>Status</TableHead>
-								<TableHead></TableHead>
-							</TableRow>
-						</TableHeader>
-						<TableBody>
-							<TableRow>
-								<TableCell colSpan={6}>
-									<Empty>
-										<EmptyHeader>
-											<EmptyMedia>
-												<Info />
-											</EmptyMedia>
-											<EmptyTitle>No data</EmptyTitle>
-											<EmptyDescription>
-												No data found in products.{" "}
-											</EmptyDescription>
-										</EmptyHeader>
-									</Empty>
-								</TableCell>
-							</TableRow>
-						</TableBody>
-					</Table>
+					<ProductTable />
 				</CardContent>
 			</Card>
 		</div>

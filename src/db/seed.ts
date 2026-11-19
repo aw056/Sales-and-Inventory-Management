@@ -16,7 +16,7 @@ import {
 	stockReceiptItems,
 	stockReceipts,
 	suppliers,
-} from "./schema";
+} from "./schema/index";
 
 const DAY = 24 * 60 * 60 * 1000;
 
